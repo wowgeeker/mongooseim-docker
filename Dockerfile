@@ -25,11 +25,14 @@ RUN wget https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb \
     && apt-get update \
     && apt-get install -y esl-erlang=1:17.5
 
+ADD ./ejabberd.cfg /ejabberd.cfg
+
 # install mim from source
 RUN git clone https://github.com/esl/MongooseIM.git -b $MONGOOSEIM_VERSION /opt/mongooseim \
     && cd /opt/mongooseim \
+    && cp /ejabberd.cfg /opt/mongooseim/rel/files/ \
     && make configure with-mysql with-pgsql with-riak with-redis with-cassandra \
-    && make rel \
+    &&  make rel \
     && rm -rf /opt/mongooseim/rel/mongooseim/log \
     && ln -s /data/log /opt/mongooseim/rel/mongooseim/log
 

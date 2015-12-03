@@ -1,6 +1,8 @@
 #!/bin/bash
 MIMDIR="/opt/mongooseim/rel/mongooseim/"
 
+echo '192.168.59.103 myorga.com' >> /etc/hosts
+
 if [ -n "$HOSTNAME" ]; then
     VMARGS=/opt/mongooseim/rel/mongooseim/etc/vm.args
     echo "-kernel inet_dist_listen_min 9100 inet_dist_listen_max 9100" >> $VMARGS
